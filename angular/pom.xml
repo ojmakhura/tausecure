@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <!-- <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.4.RELEASE</version>
+        <relativePath /> lookup parent from repository
+    </parent> -->
+    <parent>
+        <groupId>bw.roguesystems.tau</groupId>
+        <artifactId>tausecure</artifactId>
+        <version>0.0.1</version>
+    </parent>
+
+    <groupId>bw.roguesystems.tau</groupId>
+    <artifactId>tausecure-angular</artifactId>
+    <version>0.0.1</version>
+    <packaging>jar</packaging>
+
+    <name>Tau Secure Angular Frontend</name>
+    <description>Tau Secure angular front end</description>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>${maven-antrun-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <target>
+                        <copy todir="${project.basedir}/target/tausecure/src" overwrite="true" failonerror="false">
+                            <fileset dir="${project.basedir}/target/src">
+                                <include name="**/*"/>
+                            </fileset>
+                        </copy>
+                        <copy todir="${project.basedir}/target/tausecure/docs" overwrite="true" failonerror="false">
+                            <fileset dir="${project.basedir}/docs">
+                                <include name="**/*"/>
+                            </fileset>
+                        </copy>
+                        <copy todir="${project.basedir}/target/tausecure/e2e" overwrite="true" failonerror="false">
+                            <fileset dir="${project.basedir}/e2e">
+                                <include name="**/*"/>
+                            </fileset>
+                        </copy>
+                        <copy todir="${project.basedir}/target/tausecure/src" overwrite="true" failonerror="false">
+                            <fileset dir="${project.basedir}/src">
+                                <include name="**/*"/>
+                            </fileset>
+                        </copy>
+                        <copy todir="${project.basedir}/target/tausecure/public" overwrite="true" failonerror="false">
+                            <fileset dir="${project.basedir}/public">
+                                <include name="**/*"/>
+                            </fileset>
+                        </copy>
+                        <copy todir="${project.basedir}/target/tausecure/cypress" overwrite="true" failonerror="false">
+                            <fileset dir="${project.basedir}/cypress">
+                                <include name="**/*"/>
+                            </fileset>
+                        </copy>
+                        <copy todir="${project.basedir}/target/tausecure/.husky" overwrite="true" failonerror="false">
+                            <fileset dir="${project.basedir}/.husky">
+                                <include name="**/*"/>
+                            </fileset>
+                        </copy>
+                        <copy todir="${project.basedir}/target/tausecure" overwrite="true" failonerror="false">
+                            <fileset dir="${project.basedir}">
+                                <include name=".browserslistrc"/>
+                                <include name=".editorconfig"/>
+                                <include name=".htmlhintrc"/>
+                                <include name=".stylelintrc"/>
+                                <include name="*.json"/>
+                                <include name="*.js"/>
+                                <include name="README.md"/>
+                            </fileset>
+                        </copy>
+                    </target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

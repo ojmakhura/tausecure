@@ -1,0 +1,18 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="
+                        http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <!-- MASTER -->
+    <include file="access/db.access-type.xml" relativeToChangelogFile="true"/>
+    <include file="access/db.access-point-menus.xml" relativeToChangelogFile="true"/>
+    <include file="access/db.access-point-type-api.xml" relativeToChangelogFile="true"/>
+    <include file="access/db.access-point-api.xml" relativeToChangelogFile="true"/>
+    <include file="access/db.user-api.xml" relativeToChangelogFile="true"/>
+
+    <!-- District initialisation -->
+    <include file="authorisation/db.authorisation.xml" relativeToChangelogFile="true"/>
+
+</databaseChangeLog>

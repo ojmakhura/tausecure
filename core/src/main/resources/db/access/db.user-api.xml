@@ -1,0 +1,112 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet author="ojmakhura" id="user_api">
+        <insert tableName="ACCESS_POINT">
+            <column name="ID" valueSequenceNext="access_point_seq"/>
+            <column name="CREATED_AT" value="NOW()"/>
+            <column name="CREATED_BY" value="liquibase"/>
+            <column name="NAME" value="UserApi updateUserName"/>
+            <column name="URL" value="PATCH /user/{userId}"/>
+            <column name="ACCESS_POINT_TYPE_FK" valueComputed="(SELECT id from ACCESS_POINT_TYPE WHERE code='API')"/>
+        </insert>
+        <insert tableName="ACCESS_POINT">
+            <column name="ID" valueSequenceNext="access_point_seq"/>
+            <column name="CREATED_AT" value="NOW()"/>
+            <column name="CREATED_BY" value="liquibase"/>
+            <column name="NAME" value="UserApi saveUser"/>
+            <column name="URL" value="POST /user/create"/>
+            <column name="ACCESS_POINT_TYPE_FK" valueComputed="(SELECT id from ACCESS_POINT_TYPE WHERE code='API')"/>
+        </insert>
+        <insert tableName="ACCESS_POINT">
+            <column name="ID" valueSequenceNext="access_point_seq"/>
+            <column name="CREATED_AT" value="NOW()"/>
+            <column name="CREATED_BY" value="liquibase"/>
+            <column name="NAME" value="UserApi loadUsers"/>
+            <column name="URL" value="GET /user/load"/>
+            <column name="ACCESS_POINT_TYPE_FK" valueComputed="(SELECT id from ACCESS_POINT_TYPE WHERE code='API')"/>
+        </insert>
+        <insert tableName="ACCESS_POINT">
+            <column name="ID" valueSequenceNext="access_point_seq"/>
+            <column name="CREATED_AT" value="NOW()"/>
+            <column name="CREATED_BY" value="liquibase"/>
+            <column name="NAME" value="UserApi search"/>
+            <column name="URL" value="GET /user/search"/>
+            <column name="ACCESS_POINT_TYPE_FK" valueComputed="(SELECT id from ACCESS_POINT_TYPE WHERE code='API')"/>
+        </insert>
+        <insert tableName="ACCESS_POINT">
+            <column name="ID" valueSequenceNext="access_point_seq"/>
+            <column name="CREATED_AT" value="NOW()"/>
+            <column name="CREATED_BY" value="liquibase"/>
+            <column name="NAME" value="UserApi addClientRoles"/>
+            <column name="URL" value="GET /user/add-client-roles"/>
+            <column name="ACCESS_POINT_TYPE_FK" valueComputed="(SELECT id from ACCESS_POINT_TYPE WHERE code='API')"/>
+        </insert>
+        <insert tableName="ACCESS_POINT">
+            <column name="ID" valueSequenceNext="access_point_seq"/>
+            <column name="CREATED_AT" value="NOW()"/>
+            <column name="CREATED_BY" value="liquibase"/>
+            <column name="NAME" value="UserApi findUserById"/>
+            <column name="URL" value="GET /user"/>
+            <column name="ACCESS_POINT_TYPE_FK" valueComputed="(SELECT id from ACCESS_POINT_TYPE WHERE code='API')"/>
+        </insert>
+        <insert tableName="ACCESS_POINT">
+            <column name="ID" valueSequenceNext="access_point_seq"/>
+            <column name="CREATED_AT" value="NOW()"/>
+            <column name="CREATED_BY" value="liquibase"/>
+            <column name="NAME" value="UserApi changePassword"/>
+            <column name="URL" value="GET /user/updatePassword"/>
+            <column name="ACCESS_POINT_TYPE_FK" valueComputed="(SELECT id from ACCESS_POINT_TYPE WHERE code='API')"/>
+        </insert>
+        <insert tableName="ACCESS_POINT">
+            <column name="ID" valueSequenceNext="access_point_seq"/>
+            <column name="CREATED_AT" value="NOW()"/>
+            <column name="CREATED_BY" value="liquibase"/>
+            <column name="NAME" value="UserApi findByDepartmentId"/>
+            <column name="URL" value="GET /user/department-id"/>
+            <column name="ACCESS_POINT_TYPE_FK" valueComputed="(SELECT id from ACCESS_POINT_TYPE WHERE code='API')"/>
+        </insert>
+        <insert tableName="ACCESS_POINT">
+            <column name="ID" valueSequenceNext="access_point_seq"/>
+            <column name="CREATED_AT" value="NOW()"/>
+            <column name="CREATED_BY" value="liquibase"/>
+            <column name="NAME" value="UserApi findByDepartmentName"/>
+            <column name="URL" value="GET /user/department-name"/>
+            <column name="ACCESS_POINT_TYPE_FK" valueComputed="(SELECT id from ACCESS_POINT_TYPE WHERE code='API')"/>
+        </insert>
+        <insert tableName="ACCESS_POINT">
+            <column name="ID" valueSequenceNext="access_point_seq"/>
+            <column name="CREATED_AT" value="NOW()"/>
+            <column name="CREATED_BY" value="liquibase"/>
+            <column name="NAME" value="UserApi findByClientRoles"/>
+            <column name="URL" value="GET /user/client/roles"/>
+            <column name="ACCESS_POINT_TYPE_FK" valueComputed="(SELECT id from ACCESS_POINT_TYPE WHERE code='API')"/>
+        </insert>
+        <insert tableName="ACCESS_POINT">
+            <column name="ID" valueSequenceNext="access_point_seq"/>
+            <column name="CREATED_AT" value="NOW()"/>
+            <column name="CREATED_BY" value="liquibase"/>
+            <column name="NAME" value="UserApi findByRealmRoles"/>
+            <column name="URL" value="GET /user/realm/roles"/>
+            <column name="ACCESS_POINT_TYPE_FK" valueComputed="(SELECT id from ACCESS_POINT_TYPE WHERE code='API')"/>
+        </insert>
+        <insert tableName="ACCESS_POINT">
+            <column name="ID" valueSequenceNext="access_point_seq"/>
+            <column name="CREATED_AT" value="NOW()"/>
+            <column name="CREATED_BY" value="liquibase"/>
+            <column name="NAME" value="UserApi addRole"/>
+            <column name="URL" value="PUT /user/role"/>
+            <column name="ACCESS_POINT_TYPE_FK" valueComputed="(SELECT id from ACCESS_POINT_TYPE WHERE code='API')"/>
+        </insert>
+        <insert tableName="ACCESS_POINT">
+            <column name="ID" valueSequenceNext="access_point_seq"/>
+            <column name="CREATED_AT" value="NOW()"/>
+            <column name="CREATED_BY" value="liquibase"/>
+            <column name="NAME" value="UserApi removeRole"/>
+            <column name="URL" value="DELETE /user/role"/>
+            <column name="ACCESS_POINT_TYPE_FK" valueComputed="(SELECT id from ACCESS_POINT_TYPE WHERE code='API')"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
