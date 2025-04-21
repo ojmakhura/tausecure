@@ -5,7 +5,7 @@
     compiling or testing or packaging, run mvn install from /mda instead of from the root directory. -->
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>bw.roguesystems.tau</groupId>
+        <groupId>bw.co.roguesystems.tau</groupId>
         <artifactId>tausecure</artifactId>
         <version>0.0.1</version>
     </parent>

@@ -1,0 +1,81 @@
+version: '3.9'
+services:
+  tausecure-api:
+    image: ojmakhura/tausecure-api:latest
+    environment:
+      - PORT=${PORT}
+      - DRIVER_CLASS_NAME=${DRIVER_CLASS_NAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DATABASE_URL=${DATABASE_URL}
+      - DB_USERNAME=${DB_USERNAME}
+      - DATABASE_PLATFORM=${DATABASE_PLATFORM}
+      - GENERATE_DDL=${GENERATE_DDL}
+      - DDL_AUTO=${DDL_AUTO}
+      - SHOW_SQL=${SHOW_SQL}
+      - AUTH_URL=${AUTH_URL}
+      - CONTEXT_PATH=${CONTEXT_PATH}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - RATE_LIMIT=${RATE_LIMIT}
+      - TZ=Africa/Gaborone
+    networks:
+      - rogue-public
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+    deploy:
+      mode: replicated
+      replicas: ${REPLICAS}
+      placement:
+        constraints:
+          - node.labels.tausecure_api == true
+      labels:
+        - "traefik.enable=true"
+        - "traefik.docker.network=rogue-public"
+        - "traefik.http.routers.tausecure-api-http.rule=Host(`${DOMAIN_NAME}`) && PathPrefix(`${CONTEXT_PATH}`)"
+        - "traefik.http.routers.tausecure-api-http.entrypoints=web"
+        - "traefik.http.routers.tausecure-api-http.middlewares=https-redirect"
+        - "traefik.http.routers.tausecure-api-https.entrypoints=websecure"
+        - "traefik.http.routers.tausecure-api-https.rule=Host(`${DOMAIN_NAME}`) && PathPrefix(`${CONTEXT_PATH}`)"
+        - "traefik.http.routers.tausecure-api-https.tls=true"
+        - "traefik.http.routers.tausecure-api-https.tls.certresolver=le"
+        - "traefik.http.services.tausecure-api.loadbalancer.server.port=${PORT}"
+        - "traefik.http.routers.tausecure-api.middlewares=tausecure-api-strip-prefix"
+        - "traefik.http.middlewares.rate-limit.rateLimit.average=10"
+        - "traefik.http.middlewares.rate-limit.rateLimit.burst=20"
+        - "traefik.http.routers.tausecure-api.middlewares=rate-limit"
+        - "traefik.http.middlewares.tausecure-api-strip-prefix.stripprefix.prefixes=${CONTEXT_PATH}"
+
+  
+  tausecure-web:
+    image: ojmakhura/tausecure-web:latest
+    networks:
+      - rogue-public
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+    volumes:
+      - ./public/env.json:/usr/share/nginx/html/env.json
+    deploy:
+      placement:
+        constraints:
+          - node.labels.tausecure_web == true
+      labels:
+        - "traefik.enable=true"
+        - "traefik.docker.network=${NETWORK_NAME}"
+        - "traefik.http.routers.tausecure-http.rule=Host(`${DOMAIN_NAME}`)"
+        - "traefik.http.routers.tausecure-http.entrypoints=web"
+        - "traefik.http.routers.tausecure-http.middlewares=https-redirect"
+        - "traefik.http.routers.tausecure-https.entrypoints=websecure"
+        - "traefik.http.routers.tausecure-https.rule=Host(`${DOMAIN_NAME}`)"
+        - "traefik.http.routers.tausecure-https.tls=true"
+        - "traefik.http.routers.tausecure-https.tls.certresolver=le"
+        - "traefik.http.services.tausecure.loadbalancer.server.port=${PORT}"
+networks:
+  rogue-public:
+    external: true

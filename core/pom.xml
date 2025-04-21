@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>bw.roguesystems.tau</groupId>
+        <groupId>bw.co.roguesystems.tau</groupId>
         <artifactId>tausecure</artifactId>
         <version>0.0.1</version>
     </parent>
@@ -29,11 +29,15 @@
         <dependency>
             <groupId>org.andromda.translationlibraries</groupId>
             <artifactId>andromda-ocl-validation-library</artifactId>
-            <scope>provided</scope>
+            <scope>provided</scope> 
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
         <!-- Mockito for mocking objects in tests -->
         <dependency>

@@ -5,15 +5,15 @@
 
     <changeSet author="ojmakhura" id="authorisation_api">
         <insert tableName="ACCESS_POINT">
-            <column name="ID" valueSequenceNext="access_point_seq"/>
+            <column name="ID" valueComputed="(select gen_random_uuid())"/>
             <column name="CREATED_AT" value="NOW()"/>
             <column name="CREATED_BY" value="liquibase"/>
             <column name="NAME" value="AuthorisationApi findById"/>
-            <column name="URL" value="GET /authorisation/id/{id}"/>
+            <column name="URL" value="GET /authorisation/{id}"/>
             <column name="ACCESS_POINT_TYPE_FK" valueComputed="(SELECT id from ACCESS_POINT_TYPE WHERE code='API')"/>
         </insert>
         <insert tableName="ACCESS_POINT">
-            <column name="ID" valueSequenceNext="access_point_seq"/>
+            <column name="ID" valueComputed="(select gen_random_uuid())"/>
             <column name="CREATED_AT" value="NOW()"/>
             <column name="CREATED_BY" value="liquibase"/>
             <column name="NAME" value="AuthorisationApi save"/>
@@ -21,23 +21,23 @@
             <column name="ACCESS_POINT_TYPE_FK" valueComputed="(SELECT id from ACCESS_POINT_TYPE WHERE code='API')"/>
         </insert>
         <insert tableName="ACCESS_POINT">
-            <column name="ID" valueSequenceNext="access_point_seq"/>
+            <column name="ID" valueComputed="(select gen_random_uuid())"/>
             <column name="CREATED_AT" value="NOW()"/>
             <column name="CREATED_BY" value="liquibase"/>
             <column name="NAME" value="AuthorisationApi remove"/>
-            <column name="URL" value="DELETE /authorisation/id/{id}"/>
+            <column name="URL" value="DELETE /authorisation/{id}"/>
             <column name="ACCESS_POINT_TYPE_FK" valueComputed="(SELECT id from ACCESS_POINT_TYPE WHERE code='API')"/>
         </insert>
         <insert tableName="ACCESS_POINT">
-            <column name="ID" valueSequenceNext="access_point_seq"/>
+            <column name="ID" valueComputed="(select gen_random_uuid())"/>
             <column name="CREATED_AT" value="NOW()"/>
             <column name="CREATED_BY" value="liquibase"/>
             <column name="NAME" value="AuthorisationApi getAll"/>
-            <column name="URL" value="GET /authorisation/all"/>
+            <column name="URL" value="GET /authorisation"/>
             <column name="ACCESS_POINT_TYPE_FK" valueComputed="(SELECT id from ACCESS_POINT_TYPE WHERE code='API')"/>
         </insert>
         <insert tableName="ACCESS_POINT">
-            <column name="ID" valueSequenceNext="access_point_seq"/>
+            <column name="ID" valueComputed="(select gen_random_uuid())"/>
             <column name="CREATED_AT" value="NOW()"/>
             <column name="CREATED_BY" value="liquibase"/>
             <column name="NAME" value="AuthorisationApi search"/>
@@ -45,15 +45,15 @@
             <column name="ACCESS_POINT_TYPE_FK" valueComputed="(SELECT id from ACCESS_POINT_TYPE WHERE code='API')"/>
         </insert>
         <insert tableName="ACCESS_POINT">
-            <column name="ID" valueSequenceNext="access_point_seq"/>
+            <column name="ID" valueComputed="(select gen_random_uuid())"/>
             <column name="CREATED_AT" value="NOW()"/>
             <column name="CREATED_BY" value="liquibase"/>
             <column name="NAME" value="AuthorisationApi getAllPaged"/>
-            <column name="URL" value="POST /authorisation/page/{pageNumber}/size/{pageSize}"/>
+            <column name="URL" value="POST /authorisation/paged"/>
             <column name="ACCESS_POINT_TYPE_FK" valueComputed="(SELECT id from ACCESS_POINT_TYPE WHERE code='API')"/>
         </insert>
         <insert tableName="ACCESS_POINT">
-            <column name="ID" valueSequenceNext="access_point_seq"/>
+            <column name="ID" valueComputed="(select gen_random_uuid())"/>
             <column name="CREATED_AT" value="NOW()"/>
             <column name="CREATED_BY" value="liquibase"/>
             <column name="NAME" value="AuthorisationApi pagedSearch"/>
@@ -61,7 +61,7 @@
             <column name="ACCESS_POINT_TYPE_FK" valueComputed="(SELECT id from ACCESS_POINT_TYPE WHERE code='API')"/>
         </insert>
         <insert tableName="ACCESS_POINT">
-            <column name="ID" valueSequenceNext="access_point_seq"/>
+            <column name="ID" valueComputed="(select gen_random_uuid())"/>
             <column name="CREATED_AT" value="NOW()"/>
             <column name="CREATED_BY" value="liquibase"/>
             <column name="NAME" value="AuthorisationApi getAccessTypeCodeAuthorisations"/>
@@ -69,7 +69,7 @@
             <column name="ACCESS_POINT_TYPE_FK" valueComputed="(SELECT id from ACCESS_POINT_TYPE WHERE code='API')"/>
         </insert>
         <insert tableName="ACCESS_POINT">
-            <column name="ID" valueSequenceNext="access_point_seq"/>
+            <column name="ID" valueComputed="(select gen_random_uuid())"/>
             <column name="CREATED_AT" value="NOW()"/>
             <column name="CREATED_BY" value="liquibase"/>
             <column name="NAME" value="AuthorisationApi findByRolesAndUrl"/>
@@ -77,7 +77,7 @@
             <column name="ACCESS_POINT_TYPE_FK" valueComputed="(SELECT id from ACCESS_POINT_TYPE WHERE code='API')"/>
         </insert>
         <insert tableName="ACCESS_POINT">
-            <column name="ID" valueSequenceNext="access_point_seq"/>
+            <column name="ID" valueComputed="(select gen_random_uuid())"/>
             <column name="CREATED_AT" value="NOW()"/>
             <column name="CREATED_BY" value="liquibase"/>
             <column name="NAME" value="AuthorisationApi findRestrictedViewItems"/>
@@ -85,19 +85,35 @@
             <column name="ACCESS_POINT_TYPE_FK" valueComputed="(SELECT id from ACCESS_POINT_TYPE WHERE code='API')"/>
         </insert>
         <insert tableName="ACCESS_POINT">
-            <column name="ID" valueSequenceNext="access_point_seq"/>
+            <column name="ID" valueComputed="(select gen_random_uuid())"/>
             <column name="CREATED_AT" value="NOW()"/>
             <column name="CREATED_BY" value="liquibase"/>
             <column name="NAME" value="AuthorisationApi getAccessTypeCodeAuthorisationsPaged"/>
-            <column name="URL" value="GET /authorisation/authorised/page/{pageNumber}/size/{pageSize}"/>
+            <column name="URL" value="GET /authorisation/authorised/paged"/>
             <column name="ACCESS_POINT_TYPE_FK" valueComputed="(SELECT id from ACCESS_POINT_TYPE WHERE code='API')"/>
         </insert>
         <insert tableName="ACCESS_POINT">
-            <column name="ID" valueSequenceNext="access_point_seq"/>
+            <column name="ID" valueComputed="(select gen_random_uuid())"/>
             <column name="CREATED_AT" value="NOW()"/>
             <column name="CREATED_BY" value="liquibase"/>
             <column name="NAME" value="AuthorisationApi findByRolesAndUrlPaged"/>
-            <column name="URL" value="GET /authorisation/find-by-roles-url/page/{pageNumber}/size/{pageSize}"/>
+            <column name="URL" value="GET /authorisation/by-roles-url/paged"/>
+            <column name="ACCESS_POINT_TYPE_FK" valueComputed="(SELECT id from ACCESS_POINT_TYPE WHERE code='API')"/>
+        </insert>
+        <insert tableName="ACCESS_POINT">
+            <column name="ID" valueComputed="(select gen_random_uuid())"/>
+            <column name="CREATED_AT" value="NOW()"/>
+            <column name="CREATED_BY" value="liquibase"/>
+            <column name="NAME" value="AuthorisationApi findApplicationAuthorisations"/>
+            <column name="URL" value="GET /authorisation/application/{applicationId}"/>
+            <column name="ACCESS_POINT_TYPE_FK" valueComputed="(SELECT id from ACCESS_POINT_TYPE WHERE code='API')"/>
+        </insert>
+        <insert tableName="ACCESS_POINT">
+            <column name="ID" valueComputed="(select gen_random_uuid())"/>
+            <column name="CREATED_AT" value="NOW()"/>
+            <column name="CREATED_BY" value="liquibase"/>
+            <column name="NAME" value="AuthorisationApi findApplicationAuthorisationPaged"/>
+            <column name="URL" value="GET /authorisation/application/{applicationId}"/>
             <column name="ACCESS_POINT_TYPE_FK" valueComputed="(SELECT id from ACCESS_POINT_TYPE WHERE code='API')"/>
         </insert>
     </changeSet>

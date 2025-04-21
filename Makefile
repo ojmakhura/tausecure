@@ -50,6 +50,8 @@ push_web_image:
 push_api_image: 
 	. ./.env && docker push ${REGISTRY_TAG}/${API_IMAGE_NAME}:${IMAGE_VERSION}${IMAGE_VERSION_SUFFIX}
 
+update_version:
+	mvn versions:set -DnewVersion=${version}
 
 ###
 ## Run the local api and web

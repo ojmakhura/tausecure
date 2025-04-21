@@ -5,42 +5,42 @@
 
     <changeSet author="ojmakhura" id="access_point_type">
         <insert tableName="ACCESS_POINT_TYPE">
-            <column name="ID" valueSequenceNext="access_point_type_seq"/>
+            <column name="ID" valueComputed="(select gen_random_uuid())"/>
             <column name="CREATED_AT" value="NOW()"/>
             <column name="CREATED_BY" value="system"/>
             <column name="code" value="MENU"/>
             <column name="name" value="Menu"/>
         </insert>
         <insert tableName="ACCESS_POINT_TYPE">
-            <column name="ID" valueSequenceNext="access_point_type_seq"/>
+            <column name="ID" valueComputed="(select gen_random_uuid())"/>
             <column name="CREATED_AT" value="NOW()"/>
             <column name="CREATED_BY" value="system"/>
             <column name="code" value="APP"/>
             <column name="name" value="Application"/>
         </insert>
         <insert tableName="ACCESS_POINT_TYPE">
-            <column name="ID" valueSequenceNext="access_point_type_seq"/>
+            <column name="ID" valueComputed="(select gen_random_uuid())"/>
             <column name="CREATED_AT" value="NOW()"/>
             <column name="CREATED_BY" value="system"/>
             <column name="code" value="API"/>
             <column name="name" value="API Endpoint"/>
         </insert>
         <insert tableName="ACCESS_POINT_TYPE">
-            <column name="ID" valueSequenceNext="access_point_type_seq"/>
+            <column name="ID" valueComputed="(select gen_random_uuid())"/>
             <column name="CREATED_AT" value="NOW()"/>
             <column name="CREATED_BY" value="system"/>
             <column name="code" value="VIEW"/>
             <column name="name" value="View"/>
         </insert>
         <insert tableName="ACCESS_POINT_TYPE">
-            <column name="ID" valueSequenceNext="access_point_type_seq"/>
+            <column name="ID" valueComputed="(select gen_random_uuid())"/>
             <column name="CREATED_AT" value="NOW()"/>
             <column name="CREATED_BY" value="system"/>
             <column name="code" value="BUTTON"/>
             <column name="name" value="Button"/>
         </insert>
         <insert tableName="ACCESS_POINT_TYPE">
-            <column name="ID" valueSequenceNext="access_point_type_seq"/>
+            <column name="ID" valueComputed="(select gen_random_uuid())"/>
             <column name="CREATED_AT" value="NOW()"/>
             <column name="CREATED_BY" value="system"/>
             <column name="code" value="VIEW_ITEM"/>

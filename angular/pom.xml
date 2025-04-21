@@ -8,12 +8,12 @@
         <relativePath /> lookup parent from repository
     </parent> -->
     <parent>
-        <groupId>bw.roguesystems.tau</groupId>
+        <groupId>bw.co.roguesystems.tau</groupId>
         <artifactId>tausecure</artifactId>
         <version>0.0.1</version>
     </parent>
 
-    <groupId>bw.roguesystems.tau</groupId>
+    <groupId>bw.co.roguesystems.tau</groupId>
     <artifactId>tausecure-angular</artifactId>
     <version>0.0.1</version>
     <packaging>jar</packaging>

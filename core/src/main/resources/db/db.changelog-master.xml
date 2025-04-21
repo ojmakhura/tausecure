@@ -6,11 +6,14 @@
                         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
 
     <!-- MASTER -->
+    <include file="application/db.application.xml" relativeToChangelogFile="true"/>
     <include file="access/db.access-type.xml" relativeToChangelogFile="true"/>
+    <include file="access/db.applications.xml" relativeToChangelogFile="true"/>
+    <include file="access/db.application-api.xml" relativeToChangelogFile="true"/>
+    <include file="access/db.user-api.xml" relativeToChangelogFile="true"/>
     <include file="access/db.access-point-menus.xml" relativeToChangelogFile="true"/>
     <include file="access/db.access-point-type-api.xml" relativeToChangelogFile="true"/>
     <include file="access/db.access-point-api.xml" relativeToChangelogFile="true"/>
-    <include file="access/db.user-api.xml" relativeToChangelogFile="true"/>
 
     <!-- District initialisation -->
     <include file="authorisation/db.authorisation.xml" relativeToChangelogFile="true"/>

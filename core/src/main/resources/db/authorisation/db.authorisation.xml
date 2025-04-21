@@ -5,9 +5,8 @@
 
     <changeSet author="ojmakhura" id="authorisations">
         <sql endDelimiter=";"> 
-            INSERT INTO public.authorisation( id, created_at, created_by,
-            access_point_fk) (SELECT nextval('authorisation_seq') as id, now(), 'liquibase', id from
-            access_point); 
+            INSERT INTO public.authorisation(id, created_at, created_by, access_point_fk)
+            SELECT gen_random_uuid(), now(), 'liquibase', id FROM access_point;
         </sql>
     </changeSet>
     <changeSet author="ojmakhura" id="authorisation_roles">
@@ -16,4 +15,13 @@
             (SELECT id, 'DEVELOPER' from authorisation); 
         </sql>
     </changeSet>
+    <!-- <changeSet id="unsecure_api" author="ojmakhura">
+        <sqlFile  dbms="postgresql"
+            splitStatements="false"
+            stripComments="false"
+            encoding="utf8"
+            relativeToChangelogFile="true"
+            endDelimiter=";;"
+            path="unsecure_auths.sql" />
+    </changeSet> -->
 </databaseChangeLog>
