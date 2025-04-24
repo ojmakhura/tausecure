@@ -2,8 +2,8 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthorisationDTO } from '@app/model/bw/co/roguesystems/tau/authorisation/authorisation-dto';
-import { AuthorisationCriteria } from '@app/model/bw/co/roguesystems/tau/authorisation/authorisation-criteria';
 import { AuthorisationListDTO } from '@app/model/bw/co/roguesystems/tau/authorisation/authorisation-list-dto';
+import { AuthorisationCriteria } from '@app/model/bw/co/roguesystems/tau/authorisation/authorisation-criteria';
 import { HttpClient } from '@angular/common/http';
 import { Page } from '@app/model/page.model';
 import { SearchObject } from '@app/model/search-object';

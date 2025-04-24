@@ -166,7 +166,7 @@ public class ApplicationServiceImpl
         Specification<Application> spec = getSpecification(criteria.getCriteria());
         Sort sort = SortOrderFactory.createSortOrder(criteria.getSortings());
         PageRequest pageRequest = 
-                sort == null ?
+                sort != null ?
                 PageRequest.of(criteria.getPageNumber(), criteria.getPageSize(), sort) :
                 PageRequest.of(criteria.getPageNumber(), criteria.getPageSize());
 

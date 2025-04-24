@@ -39,24 +39,24 @@ export const ApplicationApiStore = signalStore(
           return applicationApi.findById(data.id, ).pipe(
             tapResponse({
               next: (data: ApplicationDTO | any) => {
-                //patchState(
-                  //store, 
-                  // { 
-                  //    data, 
-                  //    loading: false, 
-                  //    error: false,
-                  //    success: true, 
-                  //    messages: [] 
-                  //}
-                //);
+                patchState(
+                  store,
+                  {
+                     data,
+                     loading: false,
+                     error: false,
+                     success: true,
+                     messages: []
+                  }
+                );
               },
               error: (error: any) => {
                 patchState(
-                  store, { 
-                    error, 
-                    loading: false, 
+                  store, {
+                    error,
+                    loading: false,
                     success: false,
-                    messages: [error?.error ? error.error : error] 
+                    messages: [error?.error ? error.error : error]
                   }
                 );
               },
@@ -69,25 +69,25 @@ export const ApplicationApiStore = signalStore(
           patchState(store, { loading: true, loaderMessage: 'Loading ...' });
           return applicationApi.getAll().pipe(
             tapResponse({
-              next: (data: ApplicationDTO[] | any[]) => {
-                //patchState(
-                  //store, 
-                  // { 
-                  //    data, 
-                  //    loading: false, 
-                  //    error: false,
-                  //    success: true, 
-                  //    messages: [] 
-                  //}
-                //);
+              next: (dataList: ApplicationDTO[] | any[]) => {
+                patchState(
+                  store,
+                  {
+                    dataList,
+                     loading: false,
+                     error: false,
+                     success: true,
+                     messages: []
+                  }
+                );
               },
               error: (error: any) => {
                 patchState(
-                  store, { 
-                    error, 
-                    loading: false, 
+                  store, {
+                    error,
+                    loading: false,
                     success: false,
-                    messages: [error?.error ? error.error : error] 
+                    messages: [error?.error ? error.error : error]
                   }
                 );
               },
@@ -100,25 +100,25 @@ export const ApplicationApiStore = signalStore(
           patchState(store, { loading: true, loaderMessage: 'Loading ...' });
           return applicationApi.getAllPaged(data.pageNumber, data.pageSize, ).pipe(
             tapResponse({
-              next: (data: ApplicationDTO | any) => {
-                //patchState(
-                  //store, 
-                  // { 
-                  //    data, 
-                  //    loading: false, 
-                  //    error: false,
-                  //    success: true, 
-                  //    messages: [] 
-                  //}
-                //);
+              next: (dataPage: Page<ApplicationDTO> | any) => {
+                patchState(
+                  store,
+                  {
+                     dataPage,
+                     loading: false,
+                     error: false,
+                     success: true,
+                     messages: []
+                  }
+                );
               },
               error: (error: any) => {
                 patchState(
-                  store, { 
-                    error, 
-                    loading: false, 
+                  store, {
+                    error,
+                    loading: false,
                     success: false,
-                    messages: [error?.error ? error.error : error] 
+                    messages: [error?.error ? error.error : error]
                   }
                 );
               },
@@ -131,25 +131,25 @@ export const ApplicationApiStore = signalStore(
           patchState(store, { loading: true, loaderMessage: 'Loading ...' });
           return applicationApi.pagedSearch(data.criteria, ).pipe(
             tapResponse({
-              next: (data: ApplicationDTO | any) => {
-                //patchState(
-                  //store, 
-                  // { 
-                  //    data, 
-                  //    loading: false, 
-                  //    error: false,
-                  //    success: true, 
-                  //    messages: [] 
-                  //}
-                //);
+              next: (dataPage: Page<ApplicationDTO> | any) => {
+                patchState(
+                  store,
+                  {
+                     dataPage,
+                     loading: false,
+                     error: false,
+                     success: true,
+                     messages: []
+                  }
+                );
               },
               error: (error: any) => {
                 patchState(
-                  store, { 
-                    error, 
-                    loading: false, 
+                  store, {
+                    error,
+                    loading: false,
                     success: false,
-                    messages: [error?.error ? error.error : error] 
+                    messages: [error?.error ? error.error : error]
                   }
                 );
               },
@@ -163,24 +163,23 @@ export const ApplicationApiStore = signalStore(
           return applicationApi.remove(data.id, ).pipe(
             tapResponse({
               next: (data: boolean | any) => {
-                //patchState(
-                  //store, 
-                  // { 
-                  //    data, 
-                  //    loading: false, 
-                  //    error: false,
-                  //    success: true, 
-                  //    messages: [] 
-                  //}
-                //);
+                patchState(
+                  store,
+                  {
+                     loading: false,
+                     error: false,
+                     success: true,
+                     messages: []
+                  }
+                );
               },
               error: (error: any) => {
                 patchState(
-                  store, { 
-                    error, 
-                    loading: false, 
+                  store, {
+                    error,
+                    loading: false,
                     success: false,
-                    messages: [error?.error ? error.error : error] 
+                    messages: [error?.error ? error.error : error]
                   }
                 );
               },
@@ -194,24 +193,24 @@ export const ApplicationApiStore = signalStore(
           return applicationApi.save(data.application, ).pipe(
             tapResponse({
               next: (data: ApplicationDTO | any) => {
-                //patchState(
-                  //store, 
-                  // { 
-                  //    data, 
-                  //    loading: false, 
-                  //    error: false,
-                  //    success: true, 
-                  //    messages: [] 
-                  //}
-                //);
+                patchState(
+                  store,
+                  {
+                     data,
+                     loading: false,
+                     error: false,
+                     success: true,
+                     messages: []
+                  }
+                );
               },
               error: (error: any) => {
                 patchState(
-                  store, { 
-                    error, 
-                    loading: false, 
+                  store, {
+                    error,
+                    loading: false,
                     success: false,
-                    messages: [error?.error ? error.error : error] 
+                    messages: [error?.error ? error.error : error]
                   }
                 );
               },
@@ -224,25 +223,25 @@ export const ApplicationApiStore = signalStore(
           patchState(store, { loading: true, loaderMessage: 'Loading ...' });
           return applicationApi.search(data.criteria, ).pipe(
             tapResponse({
-              next: (data: ApplicationDTO[] | any[]) => {
-                //patchState(
-                  //store, 
-                  // { 
-                  //    data, 
-                  //    loading: false, 
-                  //    error: false,
-                  //    success: true, 
-                  //    messages: [] 
-                  //}
-                //);
+              next: (dataList: ApplicationDTO[] | any[]) => {
+                patchState(
+                  store,
+                  {
+                    dataList,
+                     loading: false,
+                     error: false,
+                     success: true,
+                     messages: []
+                  }
+                );
               },
               error: (error: any) => {
                 patchState(
-                  store, { 
-                    error, 
-                    loading: false, 
+                  store, {
+                    error,
+                    loading: false,
                     success: false,
-                    messages: [error?.error ? error.error : error] 
+                    messages: [error?.error ? error.error : error]
                   }
                 );
               },

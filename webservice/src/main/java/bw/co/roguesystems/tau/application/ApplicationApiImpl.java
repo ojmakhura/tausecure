@@ -29,10 +29,10 @@ public class ApplicationApiImpl extends ApplicationApiBase {
 
 
     @Override
-    public ResponseEntity<?> handleFindById(String id) {
-        try {
-            Optional<?> data = Optional.empty(); // TODO: Add custom code here;
-            ResponseEntity<?> response;
+    public ResponseEntity<ApplicationDTO> handleFindById(String id) {
+        // try {
+            Optional<ApplicationDTO> data = Optional.of(applicationService.findById(id)); // TODO: Add custom code here;
+            ResponseEntity<ApplicationDTO> response;
 
             if(data.isPresent()) {
                 response = ResponseEntity.status(HttpStatus.OK).body(data.get());
@@ -41,16 +41,16 @@ public class ApplicationApiImpl extends ApplicationApiBase {
             }
 
             return response;
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
+        // } catch (Exception e) {
+        //     logger.error(e.getMessage());
+        //     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        // }
     }
 
     @Override
     public ResponseEntity<?> handleGetAll() {
         try {
-            Optional<?> data = Optional.empty(); // TODO: Add custom code here;
+            Optional<?> data = Optional.of(applicationService.getAll()); // TODO: Add custom code here;
             ResponseEntity<?> response;
 
             if(data.isPresent()) {
@@ -69,7 +69,7 @@ public class ApplicationApiImpl extends ApplicationApiBase {
     @Override
     public ResponseEntity<?> handleGetAllPaged(Integer pageNumber, Integer pageSize) {
         try {
-            Optional<?> data = Optional.empty(); // TODO: Add custom code here;
+            Optional<?> data = Optional.of(applicationService.getAll(pageNumber, pageSize)); // TODO: Add custom code here;
             ResponseEntity<?> response;
 
             if(data.isPresent()) {
@@ -88,7 +88,7 @@ public class ApplicationApiImpl extends ApplicationApiBase {
     @Override
     public ResponseEntity<?> handlePagedSearch(SearchObject<String> criteria) {
         try {
-            Optional<?> data = Optional.empty(); // TODO: Add custom code here;
+            Optional<?> data = Optional.of(applicationService.search(criteria)); // TODO: Add custom code here;
             ResponseEntity<?> response;
 
             if(data.isPresent()) {
@@ -99,6 +99,7 @@ public class ApplicationApiImpl extends ApplicationApiBase {
 
             return response;
         } catch (Exception e) {
+            e.printStackTrace();
             logger.error(e.getMessage());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
@@ -107,7 +108,7 @@ public class ApplicationApiImpl extends ApplicationApiBase {
     @Override
     public ResponseEntity<?> handleRemove(String id) {
         try {
-            Optional<?> data = Optional.empty(); // TODO: Add custom code here;
+            Optional<?> data = Optional.of(applicationService.remove(id)); // TODO: Add custom code here;
             ResponseEntity<?> response;
 
             if(data.isPresent()) {
@@ -126,7 +127,7 @@ public class ApplicationApiImpl extends ApplicationApiBase {
     @Override
     public ResponseEntity<?> handleSave(ApplicationDTO application) {
         try {
-            Optional<?> data = Optional.empty(); // TODO: Add custom code here;
+            Optional<?> data = Optional.of(applicationService.save(application)); // TODO: Add custom code here;
             ResponseEntity<?> response;
 
             if(data.isPresent()) {
@@ -145,7 +146,7 @@ public class ApplicationApiImpl extends ApplicationApiBase {
     @Override
     public ResponseEntity<?> handleSearch(String criteria) {
         try {
-            Optional<?> data = Optional.empty(); // TODO: Add custom code here;
+            Optional<?> data = Optional.of(applicationService.search(criteria, null)); // TODO: Add custom code here;
             ResponseEntity<?> response;
 
             if(data.isPresent()) {

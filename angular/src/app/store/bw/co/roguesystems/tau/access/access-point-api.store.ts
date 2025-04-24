@@ -7,9 +7,9 @@ import { tapResponse } from '@ngrx/operators';
 import { AppState } from '@app/store/app-state';
 import { SearchObject } from '@app/model/search-object';
 import { Page } from '@app/model/page.model';
-import { AccessPointListDTO } from '@app/model/bw/co/roguesystems/tau/access/access-point-list-dto';
-import { AccessPointCriteria } from '@app/model/bw/co/roguesystems/tau/access/access-point-criteria';
 import { AccessPointDTO } from '@app/model/bw/co/roguesystems/tau/access/access-point-dto';
+import { AccessPointCriteria } from '@app/model/bw/co/roguesystems/tau/access/access-point-criteria';
+import { AccessPointListDTO } from '@app/model/bw/co/roguesystems/tau/access/access-point-list-dto';
 import { AccessPointApi } from '@app/service/bw/co/roguesystems/tau/access/access-point-api';
 
 export type AccessPointApiState = AppState<any, any> & {};
@@ -35,93 +35,93 @@ export const AccessPointApiStore = signalStore(
       reset: () => {
         patchState(store, initialState);
       },
-      findApplicationAccessPoints: rxMethod<{applicationId: string | any }>(
+      findApplicationAccessPoints: rxMethod<{ applicationId: string | any }>(
         switchMap((data: any) => {
           patchState(store, { loading: true, loaderMessage: 'Loading ...' });
-          return accessPointApi.findApplicationAccessPoints(data.applicationId, ).pipe(
+          return accessPointApi.findApplicationAccessPoints(data.applicationId,).pipe(
             tapResponse({
-              next: (data: AccessPointListDTO[] | any[]) => {
-                //patchState(
-                  //store, 
-                  // { 
-                  //    data, 
-                  //    loading: false, 
-                  //    error: false,
-                  //    success: true, 
-                  //    messages: [] 
-                  //}
-                //);
+              next: (dataList: AccessPointListDTO[] | any[]) => {
+                patchState(
+                  store,
+                  {
+                    dataList,
+                    loading: false,
+                    error: false,
+                    success: true,
+                    messages: []
+                  }
+                );
               },
               error: (error: any) => {
                 patchState(
-                  store, { 
-                    error, 
-                    loading: false, 
-                    success: false,
-                    messages: [error?.error ? error.error : error] 
-                  }
+                  store, {
+                  error,
+                  loading: false,
+                  success: false,
+                  messages: [error?.error ? error.error : error]
+                }
                 );
               },
             }),
           );
         }),
       ),
-      findApplicationAccessPointsPaged: rxMethod<{applicationId: string | any , pageNumber: number | any , pageSize: number | any }>(
+      findApplicationAccessPointsPaged: rxMethod<{ applicationId: string | any, pageNumber: number | any, pageSize: number | any }>(
         switchMap((data: any) => {
           patchState(store, { loading: true, loaderMessage: 'Loading ...' });
-          return accessPointApi.findApplicationAccessPointsPaged(data.applicationId, data.pageNumber, data.pageSize, ).pipe(
+          return accessPointApi.findApplicationAccessPointsPaged(data.applicationId, data.pageNumber, data.pageSize,).pipe(
             tapResponse({
-              next: (data: AccessPointListDTO[] | any[]) => {
-                //patchState(
-                  //store, 
-                  // { 
-                  //    data, 
-                  //    loading: false, 
-                  //    error: false,
-                  //    success: true, 
-                  //    messages: [] 
-                  //}
-                //);
+              next: (dataList: AccessPointListDTO[] | any[]) => {
+                patchState(
+                  store,
+                  {
+                    dataList,
+                    loading: false,
+                    error: false,
+                    success: true,
+                    messages: []
+                  }
+                );
               },
               error: (error: any) => {
                 patchState(
-                  store, { 
-                    error, 
-                    loading: false, 
-                    success: false,
-                    messages: [error?.error ? error.error : error] 
-                  }
+                  store, {
+                  error,
+                  loading: false,
+                  success: false,
+                  messages: [error?.error ? error.error : error]
+                }
                 );
               },
             }),
           );
         }),
       ),
-      findById: rxMethod<{id: string | any }>(
+      findById: rxMethod<{ id: string | any }>(
         switchMap((data: any) => {
           patchState(store, { loading: true, loaderMessage: 'Loading ...' });
-          return accessPointApi.findById(data.id, ).pipe(
+          return accessPointApi.findById(data.id,).pipe(
             tapResponse({
               next: (data: AccessPointDTO | any) => {
-                //patchState(
-                  //store, 
-                  // { 
-                  //    data, 
-                  //    loading: false, 
-                  //    error: false,
-                  //    success: true, 
-                  //    messages: [] 
-                  //}
-                //);
+                patchState(
+                  store,
+                  {
+                    data,
+                    loading: false,
+                    error: false,
+                    success: true,
+                    messages: []
+                  }
+                );
               },
               error: (error: any) => {
                 patchState(
-                  store, { 
-                    error, 
-                    loading: false, 
-                    success: false,
-                    messages: [error?.error ? error.error : error] 
-                  }
+                  store, {
+                  error,
+                  loading: false,
+                  success: false,
+                  messages: [error?.error ? error.error : error]
+                }
                 );
               },
             }),
@@ -133,243 +133,242 @@ export const AccessPointApiStore = signalStore(
           patchState(store, { loading: true, loaderMessage: 'Loading ...' });
           return accessPointApi.getAll().pipe(
             tapResponse({
-              next: (data: AccessPointListDTO[] | any[]) => {
-                //patchState(
-                  //store, 
-                  // { 
-                  //    data, 
-                  //    loading: false, 
-                  //    error: false,
-                  //    success: true, 
-                  //    messages: [] 
-                  //}
-                //);
+              next: (dataList: AccessPointListDTO[] | any[]) => {
+                patchState(
+                  store,
+                  {
+                    dataList,
+                    loading: false,
+                    error: false,
+                    success: true,
+                    messages: []
+                  }
+                );
               },
               error: (error: any) => {
                 patchState(
-                  store, { 
-                    error, 
-                    loading: false, 
-                    success: false,
-                    messages: [error?.error ? error.error : error] 
-                  }
+                  store, {
+                  error,
+                  loading: false,
+                  success: false,
+                  messages: [error?.error ? error.error : error]
+                }
                 );
               },
             }),
           );
         }),
       ),
-      getAllPaged: rxMethod<{pageNumber: number | any , pageSize: number | any }>(
+      getAllPaged: rxMethod<{ pageNumber: number | any, pageSize: number | any }>(
         switchMap((data: any) => {
           patchState(store, { loading: true, loaderMessage: 'Loading ...' });
-          return accessPointApi.getAllPaged(data.pageNumber, data.pageSize, ).pipe(
+          return accessPointApi.getAllPaged(data.pageNumber, data.pageSize,).pipe(
             tapResponse({
-              next: (data: Page<AccessPointListDTO> | any) => {
-                //patchState(
-                  //store, 
-                  // { 
-                  //    data, 
-                  //    loading: false, 
-                  //    error: false,
-                  //    success: true, 
-                  //    messages: [] 
-                  //}
-                //);
+              next: (dataPage: Page<AccessPointListDTO> | any) => {
+                patchState(
+                  store,
+                  {
+                    dataPage,
+                    loading: false,
+                    error: false,
+                    success: true,
+                    messages: []
+                  }
+                );
               },
               error: (error: any) => {
                 patchState(
-                  store, { 
-                    error, 
-                    loading: false, 
-                    success: false,
-                    messages: [error?.error ? error.error : error] 
-                  }
+                  store, {
+                  error,
+                  loading: false,
+                  success: false,
+                  messages: [error?.error ? error.error : error]
+                }
                 );
               },
             }),
           );
         }),
       ),
-      pagedSearch: rxMethod<{criteria: SearchObject<AccessPointCriteria> | any }>(
+      pagedSearch: rxMethod<{ criteria: SearchObject<AccessPointCriteria> | any }>(
         switchMap((data: any) => {
           patchState(store, { loading: true, loaderMessage: 'Loading ...' });
-          return accessPointApi.pagedSearch(data.criteria, ).pipe(
+          return accessPointApi.pagedSearch(data.criteria,).pipe(
             tapResponse({
-              next: (data: Page<AccessPointListDTO> | any) => {
-                //patchState(
-                  //store, 
-                  // { 
-                  //    data, 
-                  //    loading: false, 
-                  //    error: false,
-                  //    success: true, 
-                  //    messages: [] 
-                  //}
-                //);
+              next: (dataPage: Page<AccessPointListDTO> | any) => {
+                patchState(
+                  store,
+                  {
+                    dataPage,
+                    loading: false,
+                    error: false,
+                    success: true,
+                    messages: []
+                  }
+                );
               },
               error: (error: any) => {
                 patchState(
-                  store, { 
-                    error, 
-                    loading: false, 
-                    success: false,
-                    messages: [error?.error ? error.error : error] 
-                  }
+                  store, {
+                  error,
+                  loading: false,
+                  success: false,
+                  messages: [error?.error ? error.error : error]
+                }
                 );
               },
             }),
           );
         }),
       ),
-      pagedSearchOr: rxMethod<{criteria: SearchObject<AccessPointCriteria> | any }>(
+      pagedSearchOr: rxMethod<{ criteria: SearchObject<AccessPointCriteria> | any }>(
         switchMap((data: any) => {
           patchState(store, { loading: true, loaderMessage: 'Loading ...' });
-          return accessPointApi.pagedSearchOr(data.criteria, ).pipe(
+          return accessPointApi.pagedSearchOr(data.criteria,).pipe(
             tapResponse({
-              next: (data: Page<AccessPointListDTO> | any) => {
-                //patchState(
-                  //store, 
-                  // { 
-                  //    data, 
-                  //    loading: false, 
-                  //    error: false,
-                  //    success: true, 
-                  //    messages: [] 
-                  //}
-                //);
+              next: (dataPage: Page<AccessPointListDTO> | any) => {
+                patchState(
+                  store,
+                  {
+                    dataPage,
+                    loading: false,
+                    error: false,
+                    success: true,
+                    messages: []
+                  }
+                );
               },
               error: (error: any) => {
                 patchState(
-                  store, { 
-                    error, 
-                    loading: false, 
-                    success: false,
-                    messages: [error?.error ? error.error : error] 
-                  }
+                  store, {
+                  error,
+                  loading: false,
+                  success: false,
+                  messages: [error?.error ? error.error : error]
+                }
                 );
               },
             }),
           );
         }),
       ),
-      remove: rxMethod<{id: string | any }>(
+      remove: rxMethod<{ id: string | any }>(
         switchMap((data: any) => {
           patchState(store, { loading: true, loaderMessage: 'Loading ...' });
-          return accessPointApi.remove(data.id, ).pipe(
+          return accessPointApi.remove(data.id,).pipe(
             tapResponse({
               next: (data: boolean | any) => {
-                //patchState(
-                  //store, 
-                  // { 
-                  //    data, 
-                  //    loading: false, 
-                  //    error: false,
-                  //    success: true, 
-                  //    messages: [] 
-                  //}
-                //);
+                patchState(
+                  store,
+                  {
+                    loading: false,
+                    error: false,
+                    success: true,
+                    messages: []
+                  }
+                );
               },
               error: (error: any) => {
                 patchState(
-                  store, { 
-                    error, 
-                    loading: false, 
-                    success: false,
-                    messages: [error?.error ? error.error : error] 
-                  }
+                  store, {
+                  error,
+                  loading: false,
+                  success: false,
+                  messages: [error?.error ? error.error : error]
+                }
                 );
               },
             }),
           );
         }),
       ),
-      save: rxMethod<{accessPoint: AccessPointDTO | any }>(
+      save: rxMethod<{ accessPoint: AccessPointDTO | any }>(
         switchMap((data: any) => {
           patchState(store, { loading: true, loaderMessage: 'Loading ...' });
-          return accessPointApi.save(data.accessPoint, ).pipe(
+          return accessPointApi.save(data.accessPoint,).pipe(
             tapResponse({
               next: (data: AccessPointDTO | any) => {
-                //patchState(
-                  //store, 
-                  // { 
-                  //    data, 
-                  //    loading: false, 
-                  //    error: false,
-                  //    success: true, 
-                  //    messages: [] 
-                  //}
-                //);
+                patchState(
+                  store,
+                  {
+                    data,
+                    loading: false,
+                    error: false,
+                    success: true,
+                    messages: []
+                  }
+                );
               },
               error: (error: any) => {
                 patchState(
-                  store, { 
-                    error, 
-                    loading: false, 
-                    success: false,
-                    messages: [error?.error ? error.error : error] 
-                  }
+                  store, {
+                  error,
+                  loading: false,
+                  success: false,
+                  messages: [error?.error ? error.error : error]
+                }
                 );
               },
             }),
           );
         }),
       ),
-      search: rxMethod<{criteria: AccessPointCriteria | any }>(
+      search: rxMethod<{ criteria: AccessPointCriteria | any }>(
         switchMap((data: any) => {
           patchState(store, { loading: true, loaderMessage: 'Loading ...' });
-          return accessPointApi.search(data.criteria, ).pipe(
+          return accessPointApi.search(data.criteria,).pipe(
             tapResponse({
-              next: (data: AccessPointListDTO[] | any[]) => {
-                //patchState(
-                  //store, 
-                  // { 
-                  //    data, 
-                  //    loading: false, 
-                  //    error: false,
-                  //    success: true, 
-                  //    messages: [] 
-                  //}
-                //);
+              next: (dataList: AccessPointListDTO[] | any[]) => {
+                patchState(
+                  store,
+                  {
+                    dataList,
+                    loading: false,
+                    error: false,
+                    success: true,
+                    messages: []
+                  }
+                );
               },
               error: (error: any) => {
                 patchState(
-                  store, { 
-                    error, 
-                    loading: false, 
-                    success: false,
-                    messages: [error?.error ? error.error : error] 
-                  }
+                  store, {
+                  error,
+                  loading: false,
+                  success: false,
+                  messages: [error?.error ? error.error : error]
+                }
                 );
               },
             }),
           );
         }),
       ),
-      searchOr: rxMethod<{criteria: AccessPointCriteria | any }>(
+      searchOr: rxMethod<{ criteria: AccessPointCriteria | any }>(
         switchMap((data: any) => {
           patchState(store, { loading: true, loaderMessage: 'Loading ...' });
-          return accessPointApi.searchOr(data.criteria, ).pipe(
+          return accessPointApi.searchOr(data.criteria,).pipe(
             tapResponse({
-              next: (data: AccessPointListDTO[] | any[]) => {
-                //patchState(
-                  //store, 
-                  // { 
-                  //    data, 
-                  //    loading: false, 
-                  //    error: false,
-                  //    success: true, 
-                  //    messages: [] 
-                  //}
-                //);
+              next: (dataList: AccessPointListDTO[] | any[]) => {
+                patchState(
+                  store,
+                  {
+                    dataList,
+                    loading: false,
+                    error: false,
+                    success: true,
+                    messages: []
+                  }
+                );
               },
               error: (error: any) => {
                 patchState(
-                  store, { 
-                    error, 
-                    loading: false, 
-                    success: false,
-                    messages: [error?.error ? error.error : error] 
-                  }
+                  store, {
+                  error,
+                  loading: false,
+                  success: false,
+                  messages: [error?.error ? error.error : error]
+                }
                 );
               },
             }),

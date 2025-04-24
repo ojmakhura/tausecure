@@ -1,27 +1,25 @@
-import { Injectable } from '@angular/core';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { inject } from '@angular/core';
+import { AuthGuardData, createAuthGuard } from 'keycloak-angular';
 
-import { Logger } from '@shared';
-import { CredentialsService } from './credentials.service';
+const isAccessAllowed = async (
+  route: ActivatedRouteSnapshot,
+  _: RouterStateSnapshot,
+  authData: AuthGuardData
+): Promise<boolean | UrlTree> => {
+  const { authenticated, grantedRoles } = authData;
 
-const log = new Logger('AuthenticationGuard');
+  if(!authenticated) {
 
-@Injectable({
-  providedIn: 'root'
-})
-export class AuthenticationGuard implements CanActivate {
-
-  constructor(private router: Router,
-              private credentialsService: CredentialsService) { }
-
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if (this.credentialsService.isAuthenticated()) {
-      return true;
-    }
-
-    log.debug('Not authenticated, redirecting and adding redirect url...');
-    this.router.navigate(['/login'], { queryParams: { redirect: state.url }, replaceUrl: true });
-    return false;
+    authData.keycloak.login();
   }
 
-}
+  if (authenticated) {
+    return true;
+  }
+
+  const router = inject(Router);
+  return router.parseUrl('/forbidden');
+};
+
+export const AuthenticationGuard = createAuthGuard<CanActivateFn>(isAccessAllowed);

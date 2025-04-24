@@ -509,7 +509,7 @@
                                 </execution>
                             </executions>
                             -->
-                            <configuration> 
+                            <configuration>
                                 <scriptWrapper>org.andromda.scriptwrappers.GroovyScriptWrapper</scriptWrapper>
                                 <locations>
                                     <location>

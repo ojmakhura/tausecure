@@ -8,8 +8,8 @@ import { AppState } from '@app/store/app-state';
 import { SearchObject } from '@app/model/search-object';
 import { Page } from '@app/model/page.model';
 import { AuthorisationDTO } from '@app/model/bw/co/roguesystems/tau/authorisation/authorisation-dto';
-import { AuthorisationCriteria } from '@app/model/bw/co/roguesystems/tau/authorisation/authorisation-criteria';
 import { AuthorisationListDTO } from '@app/model/bw/co/roguesystems/tau/authorisation/authorisation-list-dto';
+import { AuthorisationCriteria } from '@app/model/bw/co/roguesystems/tau/authorisation/authorisation-criteria';
 import { AuthorisationApi } from '@app/service/bw/co/roguesystems/tau/authorisation/authorisation-api';
 
 export type AuthorisationApiState = AppState<any, any> & {};
