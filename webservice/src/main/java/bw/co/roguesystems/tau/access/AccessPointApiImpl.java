@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import org.apache.commons.lang3.StringUtils;
 import org.postgresql.util.PSQLException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -266,6 +267,71 @@ public class AccessPointApiImpl extends AccessPointApiBase {
             e.printStackTrace();
             logger.error(e.getMessage(), e);
             return ResponseEntity.badRequest().body("An unknown error has occurred. Please contact the site administrator.");
+        }
+    }
+
+
+    @Override
+    public ResponseEntity<?> handleFindApplicationAccessPoints(String applicationId) {
+        
+        try {
+            logger.debug("Searches for Access Point using Application ID "+applicationId);
+            Optional<?> data = Optional.of(accessPointService.findApplicationAccessPoints(applicationId));
+            ResponseEntity<?> response;
+
+            if(data.isPresent()) {
+                response = ResponseEntity.ok().body(data.get());
+            } else {
+                response = ResponseEntity.status(HttpStatus.NOT_FOUND).body(String.format("Access point with application id %ld not found.", applicationId));
+            }
+
+            return response;
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            String message = e.getMessage();
+            if (e instanceof NoSuchElementException || e.getCause() instanceof NoSuchElementException
+                    || e instanceof EntityNotFoundException || e.getCause() instanceof EntityNotFoundException) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(String.format("Access point with application id %d not found.", applicationId));
+            } else {
+                message = "An unknown error has occured. Please contact the system administrator.";
+            }
+
+            logger.error(message, e);
+            return ResponseEntity.badRequest().body(message);
+        }
+    }
+
+
+    @Override
+    public ResponseEntity<?> handleFindApplicationAccessPointsPaged(String applicationId, Integer pageNumber,
+            Integer pageSize) {
+        
+        try {
+            logger.debug("Searches for Access Point using Application ID "+applicationId + " Page number: "+pageNumber +"and Page size: " +pageSize);
+            Optional<?> data = Optional.of(accessPointService.findApplicationAccessPoints(applicationId, pageNumber, pageSize));
+            ResponseEntity<?> response;
+
+            if(data.isPresent()) {
+                response = ResponseEntity.ok().body(data.get());
+            } else {
+                response = ResponseEntity.status(HttpStatus.NOT_FOUND).body(String.format("Access point with application id %ld not found.", applicationId));
+            }
+
+            return response;
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            String message = e.getMessage();
+            if (e instanceof NoSuchElementException || e.getCause() instanceof NoSuchElementException
+                    || e instanceof EntityNotFoundException || e.getCause() instanceof EntityNotFoundException) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(String.format("Access point with application id %d not found.", applicationId));
+            } else {
+                message = "An unknown error has occured. Please contact the system administrator.";
+            }
+
+            logger.error(message, e);
+            return ResponseEntity.badRequest().body(message);
         }
     }
 }

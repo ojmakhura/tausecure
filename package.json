@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "ngx-spinner": "^19.0.0",
+    "ngx-toastr": "^19.0.0"
+  }
+}

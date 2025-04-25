@@ -38,7 +38,14 @@ export class SearchApplicationsImplComponent extends SearchApplicationsComponent
 
     constructor() {
         super();
+
+        this.loading = this.applicationApiStore.loading;
+        this.success = this.applicationApiStore.success;
+        this.error = this.applicationApiStore.error;
+        this.loaderMessage = this.applicationApiStore.loaderMessage;
+        this.messages = this.applicationApiStore.messages;
         this.applicationsTableSignal = this.applicationApiStore.dataPage;
+        this.applicationApiStore.reset();
 
     }
 

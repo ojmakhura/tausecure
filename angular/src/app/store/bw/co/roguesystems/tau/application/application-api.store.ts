@@ -31,10 +31,12 @@ export const ApplicationApiStore = signalStore(
     const applicationApi = inject(ApplicationApi);
     return {
       reset: () => {
+        console.log('resetting applicationApi store');
         patchState(store, initialState);
       },
       findById: rxMethod<{id: string | any }>(
         switchMap((data: any) => {
+          console.log('findById', data);
           patchState(store, { loading: true, loaderMessage: 'Loading ...' });
           return applicationApi.findById(data.id, ).pipe(
             tapResponse({
@@ -46,7 +48,7 @@ export const ApplicationApiStore = signalStore(
                      loading: false,
                      error: false,
                      success: true,
-                     messages: []
+                     messages: [`Application '${data.name}' loaded successfully`]
                   }
                 );
               },
@@ -66,6 +68,7 @@ export const ApplicationApiStore = signalStore(
       ),
       getAll: rxMethod<void>(
         switchMap(() => {
+          console.log('getAll');
           patchState(store, { loading: true, loaderMessage: 'Loading ...' });
           return applicationApi.getAll().pipe(
             tapResponse({
@@ -97,6 +100,7 @@ export const ApplicationApiStore = signalStore(
       ),
       getAllPaged: rxMethod<{pageNumber: number | any , pageSize: number | any }>(
         switchMap((data: any) => {
+          console.log('getAllPaged', data);
           patchState(store, { loading: true, loaderMessage: 'Loading ...' });
           return applicationApi.getAllPaged(data.pageNumber, data.pageSize, ).pipe(
             tapResponse({
@@ -128,6 +132,7 @@ export const ApplicationApiStore = signalStore(
       ),
       pagedSearch: rxMethod<{criteria: SearchObject<string> | any }>(
         switchMap((data: any) => {
+          console.log('pagedSearch', data);
           patchState(store, { loading: true, loaderMessage: 'Loading ...' });
           return applicationApi.pagedSearch(data.criteria, ).pipe(
             tapResponse({
@@ -159,6 +164,7 @@ export const ApplicationApiStore = signalStore(
       ),
       remove: rxMethod<{id: string | any }>(
         switchMap((data: any) => {
+          console.log('remove', data);
           patchState(store, { loading: true, loaderMessage: 'Loading ...' });
           return applicationApi.remove(data.id, ).pipe(
             tapResponse({
@@ -189,6 +195,7 @@ export const ApplicationApiStore = signalStore(
       ),
       save: rxMethod<{application: ApplicationDTO | any }>(
         switchMap((data: any) => {
+          console.log('save', data);
           patchState(store, { loading: true, loaderMessage: 'Loading ...' });
           return applicationApi.save(data.application, ).pipe(
             tapResponse({
@@ -220,6 +227,7 @@ export const ApplicationApiStore = signalStore(
       ),
       search: rxMethod<{criteria: string | any }>(
         switchMap((data: any) => {
+          console.log('search', data);
           patchState(store, { loading: true, loaderMessage: 'Loading ...' });
           return applicationApi.search(data.criteria, ).pipe(
             tapResponse({

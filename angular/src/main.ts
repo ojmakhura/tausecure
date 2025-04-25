@@ -30,6 +30,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { RouteReusableStrategy } from '@app/@shared';
+import { provideToastr } from 'ngx-toastr';
 
 if (environment.production) {
   enableProdMode();
@@ -79,6 +80,7 @@ fetch('env.json')
         provideZoneChangeDetection({ eventCoalescing: true }),
         provideRouter(routes, withHashLocation()),
         provideAnimations(),
+        provideToastr(),
         provideHttpClient(
           withInterceptorsFromDi(),
           withInterceptors([apiPrefixInterceptor, errorHandlerInterceptor, includeBearerTokenInterceptor]),
