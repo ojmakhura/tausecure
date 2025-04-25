@@ -6,8 +6,16 @@
 package bw.co.roguesystems.tau.access;
 
 import bw.co.roguesystems.tau.SearchObject;
+import bw.co.roguesystems.tau.keycloak.KeycloakService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.persistence.EntityNotFoundException;
+
+import java.time.LocalDateTime;
+import java.util.NoSuchElementException;
 import java.util.Optional;
+
+import org.postgresql.util.PSQLException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,220 +28,244 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "Access Point", description = "Managing the different resources available.")
 public class AccessPointApiImpl extends AccessPointApiBase {
     
+    private final KeycloakService keycloakService;
+
     public AccessPointApiImpl(
-        AccessPointService accessPointService    ) {
+        AccessPointService accessPointService , KeycloakService keycloakService   ) {
         
         super(
             accessPointService        );
+            this.keycloakService = keycloakService;
     }
 
-
-    @Override
-    public ResponseEntity<?> handleFindApplicationAccessPoints(String applicationId) {
-        try {
-            Optional<?> data = Optional.empty(); // TODO: Add custom code here;
-            ResponseEntity<?> response;
-
-            if(data.isPresent()) {
-                response = ResponseEntity.status(HttpStatus.OK).body(data.get());
-            } else {
-                response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-            }
-
-            return response;
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
-    }
-
-    @Override
-    public ResponseEntity<?> handleFindApplicationAccessPointsPaged(String applicationId, Integer pageNumber, Integer pageSize) {
-        try {
-            Optional<?> data = Optional.empty(); // TODO: Add custom code here;
-            ResponseEntity<?> response;
-
-            if(data.isPresent()) {
-                response = ResponseEntity.status(HttpStatus.OK).body(data.get());
-            } else {
-                response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-            }
-
-            return response;
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
-    }
 
     @Override
     public ResponseEntity<?> handleFindById(String id) {
         try {
-            Optional<?> data = Optional.empty(); // TODO: Add custom code here;
+            logger.debug("Searches for Access Point using ID "+id);
+            Optional<?> data = Optional.of(accessPointService.findById(id));
             ResponseEntity<?> response;
 
             if(data.isPresent()) {
-                response = ResponseEntity.status(HttpStatus.OK).body(data.get());
+                response = ResponseEntity.ok().body(data.get());
             } else {
-                response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+                response = ResponseEntity.status(HttpStatus.NOT_FOUND).body(String.format("Access point with id %ld not found.", id));
             }
 
             return response;
         } catch (Exception e) {
-            logger.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            e.printStackTrace();
+
+            String message = e.getMessage();
+            if (e instanceof NoSuchElementException || e.getCause() instanceof NoSuchElementException
+                    || e instanceof EntityNotFoundException || e.getCause() instanceof EntityNotFoundException) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(String.format("Access point with id %d not found.", id));
+            } else {
+                message = "An unknown error has occured. Please contact the system administrator.";
+            }
+
+            logger.error(message, e);
+            return ResponseEntity.badRequest().body(message);
         }
     }
 
     @Override
     public ResponseEntity<?> handleGetAll() {
         try {
-            Optional<?> data = Optional.empty(); // TODO: Add custom code here;
-            ResponseEntity<?> response;
+            logger.debug("Displays all Access Points");
 
-            if(data.isPresent()) {
-                response = ResponseEntity.status(HttpStatus.OK).body(data.get());
-            } else {
-                response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-            }
+            return ResponseEntity.ok().body(accessPointService.getAll());
 
-            return response;
         } catch (Exception e) {
-            logger.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            e.printStackTrace();
+            logger.error(e.getMessage(), e);
+            return ResponseEntity.badRequest().body("An unknown error has occured. Please contact the system administrator.");
         }
     }
 
     @Override
     public ResponseEntity<?> handleGetAllPaged(Integer pageNumber, Integer pageSize) {
         try {
-            Optional<?> data = Optional.empty(); // TODO: Add custom code here;
-            ResponseEntity<?> response;
-
-            if(data.isPresent()) {
-                response = ResponseEntity.status(HttpStatus.OK).body(data.get());
-            } else {
-                response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-            }
-
-            return response;
+            logger.debug("Displays all Access Points of the specified "+"Page number: "+pageNumber +"and Page size: " +pageSize);
+            return ResponseEntity.ok().body(accessPointService.getAll(pageNumber, pageSize));
         } catch (Exception e) {
-            logger.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            e.printStackTrace();
+            logger.error(e.getMessage(), e);
+            return ResponseEntity.badRequest().body("An unknown error has occured. Please contact the system administrator.");
         }
     }
 
     @Override
     public ResponseEntity<?> handlePagedSearch(SearchObject<AccessPointCriteria> criteria) {
         try {
-            Optional<?> data = Optional.empty(); // TODO: Add custom code here;
-            ResponseEntity<?> response;
-
-            if(data.isPresent()) {
-                response = ResponseEntity.status(HttpStatus.OK).body(data.get());
-            } else {
-                response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-            }
-
-            return response;
+            logger.debug("Searches for an Access Point of the specified Page Number: " + criteria.getPageNumber() + ", Page Size: " + criteria.getPageSize() + " and Criteria: " +criteria);
+            return ResponseEntity.ok().body(accessPointService.search(criteria));
         } catch (Exception e) {
-            logger.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }
-    }
-
-    @Override
-    public ResponseEntity<?> handlePagedSearchOr(SearchObject<AccessPointCriteria> criteria) {
-        try {
-            Optional<?> data = Optional.empty(); // TODO: Add custom code here;
-            ResponseEntity<?> response;
-
-            if(data.isPresent()) {
-                response = ResponseEntity.status(HttpStatus.OK).body(data.get());
-            } else {
-                response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-            }
-
-            return response;
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            e.printStackTrace();
+            logger.error(e.getMessage(), e);
+            String message = String.format("An error occurred when reading page %d of size %d.", criteria.getPageNumber(), criteria.getPageSize());
+            return ResponseEntity.badRequest().body(message);
         }
     }
 
     @Override
     public ResponseEntity<?> handleRemove(String id) {
         try {
-            Optional<?> data = Optional.empty(); // TODO: Add custom code here;
+            logger.debug("Deletes Access Point by ID " + id);
+            boolean rm = accessPointService.remove(id);
             ResponseEntity<?> response;
 
-            if(data.isPresent()) {
-                response = ResponseEntity.status(HttpStatus.OK).body(data.get());
+            if(rm) {
+                response = ResponseEntity.ok().body(rm);
             } else {
-                response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+                response = ResponseEntity.status(HttpStatus.NOT_FOUND).body("Failed to delete the access point with id " + id);
             }
 
             return response;
         } catch (Exception e) {
-            logger.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            e.printStackTrace();
+            logger.error(e.getMessage(), e);
+
+            if(e instanceof EmptyResultDataAccessException || e.getCause() instanceof EmptyResultDataAccessException) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Could not delete access point with id " + id);
+            } else if(e.getMessage().contains("is in use") || e.getCause().getMessage().contains("is in use")) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("This access point is in use and cannot be deleted.");
+            }
+
+            return ResponseEntity.badRequest().body("Unknown error encountered when deleting access point with id " + id);
         }
     }
 
     @Override
     public ResponseEntity<?> handleSave(AccessPointDTO accessPoint) {
         try {
-            Optional<?> data = Optional.empty(); // TODO: Add custom code here;
+            logger.debug("Saves Access Point " + accessPoint);
+            if(StringUtils.isBlank(accessPoint.getId())) {
+                
+                accessPoint.setCreatedAt(LocalDateTime.now());
+                accessPoint.setCreatedBy(keycloakService.getJwt().getClaimAsString("preferred_username"));
+            } else {
+
+                accessPoint.setModifiedAt(LocalDateTime.now());
+                accessPoint.setModifiedBy(keycloakService.getJwt().getClaimAsString("preferred_username"));
+            }
+            Optional<?> data = Optional.of(accessPointService.save(accessPoint));
             ResponseEntity<?> response;
 
             if(data.isPresent()) {
-                response = ResponseEntity.status(HttpStatus.OK).body(data.get());
+                response = ResponseEntity.ok().body(data.get());
             } else {
-                response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+                response = ResponseEntity.status(HttpStatus.NOT_FOUND).body("Could not save the access point.");
             }
 
             return response;
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (IllegalArgumentException | AccessPointServiceException e) {
+
+            e.printStackTrace();
+
+            String message = e.getMessage();
+
+            if(e instanceof IllegalArgumentException || e.getCause() instanceof IllegalArgumentException) {
+
+                if(message.contains("'accessPoint'")) {
+
+                    message = "The access point information is missing.";
+
+                } else if(message.contains("can not be null")) {
+                    if(message.contains("'accessPoint.accessPointType'") ||
+                            message.contains("'accessPointType'")) {
+                
+                        message = "The access point type or its id is missing.";
+                    } else if(message.contains("'accessPoint.name'") ||
+                                message.contains("'name'")) {
+                        message = "The access point name is missing.";
+                        
+                    } else if(message.contains("'accessPoint.url'") ||
+                                message.contains("'url'")) {
+                        message = "The access point url is missing.";
+                    }
+                
+                } else if(message.contains("'accessPoint.name'")) {
+                
+                    message = "The access point name is missing.";
+                
+                } else if(message.contains("'accessPoint.url'")) {
+                  
+                    message = "The access point url is missing.";
+                
+                } else {
+                    message = "An unknown error has occured. Please contact the system administrator.";
+                }
+
+                return ResponseEntity.badRequest().body(message);
+
+            } else if(e.getCause() instanceof PSQLException) {
+
+                if (e.getCause().getMessage().contains("duplicate key")) {
+                    if(e.getCause().getMessage().contains("(name)")) {
+
+                        return ResponseEntity.badRequest().body("An access point with this name has been already created.");
+                    } 
+                    
+                } else if (e.getCause().getMessage().contains("null value in column")) {
+                    if (e.getCause().getMessage().contains("column \"created_by\"")) {
+                        return ResponseEntity.badRequest().body("The created-by value is missing.");
+                    } else if (e.getCause().getMessage().contains("column \"created_date\"")) {
+                        return ResponseEntity.badRequest().body("The created date value is missing.");
+                    }
+                }
+                
+                return ResponseEntity.badRequest().body("An unknown database error has occured. Please contact the portal administrator.");
+            } 
+
+            return ResponseEntity.badRequest().body("An unknown error has occured. Please contact the portal administrator.");
+        } catch(Exception e) {
+
+            e.printStackTrace();
+            logger.error(e.getMessage(), e);
+            return ResponseEntity.badRequest().body("An unknown error has occured. Please contact the portal administrator.");
         }
     }
 
     @Override
     public ResponseEntity<?> handleSearch(AccessPointCriteria criteria) {
         try {
-            Optional<?> data = Optional.empty(); // TODO: Add custom code here;
-            ResponseEntity<?> response;
+            
+            logger.info("Searches for an Access Point by criteria " + criteria);
+            return ResponseEntity.ok().body(accessPointService.search(criteria == null ? new AccessPointCriteria() : criteria, null));
 
-            if(data.isPresent()) {
-                response = ResponseEntity.status(HttpStatus.OK).body(data.get());
-            } else {
-                response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-            }
-
-            return response;
         } catch (Exception e) {
-            logger.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            e.printStackTrace();
+            logger.error(e.getMessage(), e);
+            return ResponseEntity.badRequest().body("An unknown error has occurred. Please contact the site administrator.");
         }
     }
 
     @Override
+    public ResponseEntity<?> handlePagedSearchOr(SearchObject<AccessPointCriteria> criteria) {
+        try {
+            logger.debug("Searches for an Access Point of the specified Page Number: " + criteria.getPageNumber() + ", Page Size: " + criteria.getPageSize() + " and Criteria: " +criteria);
+            return ResponseEntity.ok().body(accessPointService.searchOr(criteria));
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error(e.getMessage(), e);
+            String message = String.format("An error occurred when reading page %d of size %d.", criteria.getPageNumber(), criteria.getPageSize());
+            return ResponseEntity.badRequest().body(message);
+        }
+    }
+
+
+    @Override
     public ResponseEntity<?> handleSearchOr(AccessPointCriteria criteria) {
         try {
-            Optional<?> data = Optional.empty(); // TODO: Add custom code here;
-            ResponseEntity<?> response;
+            
+            logger.info("Searches for an Access Point by criteria " + criteria);
+            return ResponseEntity.ok().body(accessPointService.searchOr(criteria == null ? new AccessPointCriteria() : criteria, null));
 
-            if(data.isPresent()) {
-                response = ResponseEntity.status(HttpStatus.OK).body(data.get());
-            } else {
-                response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-            }
-
-            return response;
         } catch (Exception e) {
-            logger.error(e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            e.printStackTrace();
+            logger.error(e.getMessage(), e);
+            return ResponseEntity.badRequest().body("An unknown error has occurred. Please contact the site administrator.");
         }
     }
 }

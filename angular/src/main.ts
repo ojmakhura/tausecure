@@ -8,7 +8,14 @@ import { enableProdMode, importProvidersFrom, isDevMode, provideZoneChangeDetect
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from '@app/app.component';
 import { appConfig } from '@app/app.config';
-import { AutoRefreshTokenService, INCLUDE_BEARER_TOKEN_INTERCEPTOR_CONFIG, includeBearerTokenInterceptor, provideKeycloak, UserActivityService, withAutoRefreshToken } from 'keycloak-angular';
+import {
+  AutoRefreshTokenService,
+  INCLUDE_BEARER_TOKEN_INTERCEPTOR_CONFIG,
+  includeBearerTokenInterceptor,
+  provideKeycloak,
+  UserActivityService,
+  withAutoRefreshToken,
+} from 'keycloak-angular';
 
 import { environment } from '@env/environment';
 import { UseCaseScope } from '@app/utils/use-case-scope';
@@ -34,7 +41,7 @@ if (environment.production) {
 fetch('env.json')
   .then((response) => response.json())
   .then((env) => {
-    console.log(env)
+    console.log(env);
     bootstrapApplication(AppComponent, {
       providers: [
         UseCaseScope,
@@ -42,37 +49,39 @@ fetch('env.json')
           config: {
             url: env.authDomain,
             realm: env.realm,
-            clientId: env.clientId
+            clientId: env.clientId,
           },
           initOptions: {
             onLoad: 'check-sso',
-            silentCheckSsoRedirectUri: window.location.origin + '/silent-check-sso.html'
+            silentCheckSsoRedirectUri: window.location.origin + '/silent-check-sso.html',
           },
           features: [
             withAutoRefreshToken({
               onInactivityTimeout: 'logout',
-              sessionTimeout: 60000
-            })
+              sessionTimeout: 60000,
+            }),
           ],
-          providers: [AutoRefreshTokenService, UserActivityService]
+          providers: [AutoRefreshTokenService, UserActivityService],
         }),
         {
           provide: INCLUDE_BEARER_TOKEN_INTERCEPTOR_CONFIG,
-          useValue: [{
-            urlPattern: /^(\/.*)?$/i,
-            bearerPrefix: 'Bearer'
-          }]
+          useValue: [
+            {
+              urlPattern: /^(\/.*)?$/i,
+              bearerPrefix: 'Bearer',
+            },
+            {
+              urlPattern: /^(https:\/\/keycloak\.roguedev\.local)(\/.*)?$/i,
+              bearerPrefix: 'Bearer',
+            }
+          ],
         },
         provideZoneChangeDetection({ eventCoalescing: true }),
         provideRouter(routes, withHashLocation()),
         provideAnimations(),
         provideHttpClient(
           withInterceptorsFromDi(),
-          withInterceptors([
-            apiPrefixInterceptor,
-            errorHandlerInterceptor,
-            includeBearerTokenInterceptor
-          ])
+          withInterceptors([apiPrefixInterceptor, errorHandlerInterceptor, includeBearerTokenInterceptor]),
         ),
         provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
         importProvidersFrom(
@@ -87,8 +96,7 @@ fetch('env.json')
         },
       ],
     }).catch((err) => console.error(err));
-  }
-  )
+  })
   .catch((error) => {
     console.error('Error loading env.json:', error);
     bootstrapApplication(AppComponent, appConfig).catch((err) => console.error(err));

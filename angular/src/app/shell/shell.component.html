@@ -1,7 +1,12 @@
 <mat-drawer-container fxFlex color="primary">
-  <mat-drawer mode="side" #sidenav [mode]="isMobile ? 'over' : 'side'" [opened]="!isMobile" [disableClose]="!isMobile"
-    ngClass.gt-sm="has-border">
-  
+  <mat-drawer
+    mode="side"
+    #sidenav
+    [mode]="isMobile ? 'over' : 'side'"
+    [opened]="!isMobile"
+    [disableClose]="!isMobile"
+    ngClass.gt-sm="has-border"
+  >
     <mat-toolbar>
       <span translate>application.name</span>
       <div fxFlex></div>
@@ -12,7 +17,7 @@
         <mat-menu #userMenu="matMenu">
           <mat-list>
             <mat-list-item>
-              <span >Logged in as</span>&nbsp;<b>{{username}}</b>
+              <span>Logged in as</span>&nbsp;<b>{{ appStore.username() }}</b>
             </mat-list-item>
             <mat-divider></mat-divider>
           </mat-list>
@@ -31,7 +36,12 @@
           <mat-divider></mat-divider>
         </div>
         <div *ngFor="let item of menus">
-          <a mat-list-item routerLink="{{ item.routerLink }}" routerLinkActive="active" (click)="isMobile && sidenav.close()">
+          <a
+            mat-list-item
+            routerLink="{{ item.routerLink }}"
+            routerLinkActive="active"
+            (click)="isMobile && sidenav.close()"
+          >
             <span translate>{{ item.titleKey }}</span>
           </a>
           <mat-divider></mat-divider>
@@ -46,12 +56,12 @@
     </mat-action-list>
   </mat-drawer>
   <mat-drawer-content>
-      <mat-toolbar color="primary" class="mat-elevation-z6">
-        <button class="menu-button" mat-icon-button (click)="sidenav.toggle()" fxHide.gt-sm>
-          <mat-icon>menu</mat-icon>
-        </button>
-        <span>{{ title }}</span>
-      </mat-toolbar>
-      <router-outlet></router-outlet>
+    <mat-toolbar color="primary" class="mat-elevation-z6">
+      <button class="menu-button" mat-icon-button (click)="sidenav.toggle()" fxHide.gt-sm>
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>{{ title }}</span>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
   </mat-drawer-content>
 </mat-drawer-container>
